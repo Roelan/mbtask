@@ -3,7 +3,9 @@ package com.example.filechecker.ui.fileslist
 import android.os.Environment
 import android.util.Log
 import androidx.lifecycle.ViewModel
+import com.example.filechecker.App
 import com.example.filechecker.data.FileData
+import com.example.filechecker.di.AppComponent
 import com.example.filechecker.provider.FileDataProvider
 import com.example.filechecker.provider.FileLister
 import com.example.filechecker.provider.SaveFilesData
@@ -17,9 +19,14 @@ class FilesListViewModel : ViewModel() {
 
     private var filesListData:  ArrayList<FileData> = ArrayList()
     var disposable: Disposable? = null
-    private val fileDataProvider = FileDataProvider()
 
-    @Inject lateinit var fileData: FileDataProvider
+    @Inject
+    lateinit var fileDataProvider: FileDataProvider
+    //private val fileDataProvider = FileDataProvider()
+
+    init {
+        App().getComponent().inject(this)
+    }
 
     fun setFileListArray() {
         val state = Environment.getExternalStorageState()

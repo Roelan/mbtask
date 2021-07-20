@@ -3,6 +3,7 @@ package com.example.filechecker
 import android.app.Application
 import com.example.filechecker.di.AppComponent
 import com.example.filechecker.di.AppModule
+import com.example.filechecker.di.DaggerAppComponent
 
 class App : Application() {
 
@@ -15,8 +16,5 @@ class App : Application() {
             .build()
     }
 
-    @JvmName("getAppComponent1")
-    fun getAppComponent(): AppComponent{
-        return appComponent
-    }
+    fun getComponent() : AppComponent = appComponent
 }

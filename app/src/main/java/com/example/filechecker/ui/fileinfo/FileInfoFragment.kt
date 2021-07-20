@@ -12,12 +12,12 @@ import com.example.filechecker.data.FileData
 
 class FileInfoFragment : DialogFragment() {
 
-    lateinit var tvFileName : TextView
-    lateinit var tvFileSize : TextView
-    lateinit var tvFilePath : TextView
-    lateinit var tvFileLastModifiedDate : TextView
-    lateinit var tvCloseBtn : TextView
-    lateinit var ivImage : ImageView
+    private lateinit var tvFileName : TextView
+    private lateinit var tvFileSize : TextView
+    private lateinit var tvFilePath : TextView
+    private lateinit var tvFileLastModifiedDate : TextView
+    private lateinit var tvCloseBtn : TextView
+    private lateinit var ivImage : ImageView
 
     companion object {
         fun getNewInstance(fileData: FileData) : FileInfoFragment {
@@ -33,7 +33,7 @@ class FileInfoFragment : DialogFragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         val v: View = inflater.inflate(R.layout.file_info_fragment, container, false)
         val myFileData : FileData = arguments?.getParcelable("fileData")!!
 
