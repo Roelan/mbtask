@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">FileChecker</string>
+    <string name="close">Close</string>
+    <string name="file_info">File Info</string>
+    <string name="filter_by_name">Filter by name</string>
+    <string name="save">Save</string>
+    <string name="filter_by_modify">Filter by last modify date</string>
+    <string name="filter_by_size">Filter by size</string>
 </resources>
