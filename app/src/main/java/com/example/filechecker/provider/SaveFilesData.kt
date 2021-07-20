@@ -1,7 +1,6 @@
 package com.example.filechecker.provider
 
 import android.os.Environment
-import com.example.filechecker.R
 import com.example.filechecker.data.FileData
 import java.io.*
 

@@ -4,7 +4,7 @@ import org.reactivestreams.Publisher
 import org.reactivestreams.Subscriber
 import java.io.File
 
-class FileLister(private val directory: File) : Publisher<String> {
+class FileLister(private val directory: File) : Publisher <String> {
 
     private lateinit var subscriber: Subscriber<in String>
 

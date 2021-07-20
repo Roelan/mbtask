@@ -1,6 +1,5 @@
 <resources>
     <string name="app_name">FileChecker</string>
-    <string name="file_name">MyData.txt</string>
     <string name="close">Close</string>
     <string name="file_info">File Info</string>
     <string name="filter_by_name">Filter by name</string>

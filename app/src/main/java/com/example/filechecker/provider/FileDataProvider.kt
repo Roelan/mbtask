@@ -5,7 +5,7 @@ import java.io.File
 import java.util.*
 import kotlin.collections.ArrayList
 
-class SetListOfFiles {
+class FileDataProvider {
 
     private var filesList: ArrayList<FileData> = ArrayList()
 
@@ -30,11 +30,32 @@ class SetListOfFiles {
                     extension
                 )
             )
-            println("<<< dir: $directory | fileName: $fileName | extension: $extension | Size=${sizeInMbStr} MB | lastModified: ${Date(file.lastModified())}")
+            println(
+                "<<< dir: $directory | fileName: $fileName | extension: $extension | Size=${sizeInMbStr} MB | lastModified: ${
+                    Date(
+                        file.lastModified()
+                    )
+                }"
+            )
         }
     }
 
     fun getList(): ArrayList<FileData> {
+        return filesList
+    }
+
+    fun getSortedListByName(): ArrayList<FileData> {
+        filesList.sortBy { it.fileName }
+        return filesList
+    }
+
+    fun getSortedListBySize(): ArrayList<FileData> {
+        filesList.sortBy { it.fileSize }
+        return filesList
+    }
+
+    fun getSortedListByDate(): ArrayList<FileData> {
+        filesList.sortBy { it.lastModified }
         return filesList
     }
 }

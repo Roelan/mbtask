@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.RecyclerView
 import com.example.filechecker.R
 import com.example.filechecker.data.FileData
@@ -15,19 +16,6 @@ class FileAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     fun setUpFileList(filesList: ArrayList<FileData>) {
         this.filesList = filesList
-    }
-
-    fun getFilesList() : ArrayList<FileData> {
-        return filesList
-    }
-
-    fun filterList(filterType : String) {
-        when (filterType) {
-            "Name" -> { filesList.sortBy { it.fileName }}
-            "Size" -> { filesList.sortBy { it.fileSize }}
-            "Modify" -> {filesList.sortBy { it.lastModified }}
-        }
-        filesList.forEach { println("<<<<<<<< $it") }
         notifyDataSetChanged()
     }
 

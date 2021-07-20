@@ -1,14 +1,11 @@
-package com.example.filechecker.ui
+package com.example.filechecker.ui.fileinfo
 
-import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.core.net.toUri
 import androidx.fragment.app.DialogFragment
 import com.example.filechecker.R
 import com.example.filechecker.data.FileData
