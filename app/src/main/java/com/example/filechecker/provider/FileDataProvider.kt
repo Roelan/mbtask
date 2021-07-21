@@ -1,6 +1,12 @@
 package com.example.filechecker.provider
 
+import android.os.Environment
+import android.util.Log
 import com.example.filechecker.data.FileData
+import io.reactivex.Observable
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.Disposable
+import io.reactivex.schedulers.Schedulers
 import java.io.File
 import java.util.*
 import kotlin.collections.ArrayList
@@ -8,8 +14,9 @@ import kotlin.collections.ArrayList
 class FileDataProvider {
 
     private var filesList: ArrayList<FileData> = ArrayList()
+    private var disposable: Disposable? = null
 
-    fun setList(fullPath: String) {
+    private fun setList(fullPath: String) {
         val file = File(fullPath)
         val regex = """(.+)/(.+)\.(.+)""".toRegex()
         val matchResult = regex.matchEntire(fullPath)
@@ -40,7 +47,23 @@ class FileDataProvider {
         }
     }
 
-    fun getList(): ArrayList<FileData> {
+    fun getFileDataList() : ArrayList<FileData>{
+        val state = Environment.getExternalStorageState()
+        Log.i("TAG", "Set File List Array")
+        if (Environment.MEDIA_MOUNTED == state || Environment.MEDIA_MOUNTED_READ_ONLY == state) {
+            this.disposable =
+                Observable.fromPublisher(FileLister(Environment.getExternalStorageDirectory()))
+                    .subscribeOn(Schedulers.newThread())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe({
+                        setList(it)
+                    }, {
+                        Log.e("TAG", "Error in listing files from the SD card", it)
+                    }, {
+                        this.disposable?.dispose()
+                        this.disposable = null
+                    })
+        }
         return filesList
     }
 

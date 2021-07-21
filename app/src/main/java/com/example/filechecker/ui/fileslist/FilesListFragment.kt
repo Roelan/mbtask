@@ -7,23 +7,18 @@ import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.filechecker.R
 import com.example.filechecker.adapter.FileAdapter
 import com.example.filechecker.ui.fileinfo.FileInfoFragment
 
-class FilesListFragment : Fragment() {
+class FilesListFragment : Fragment(R.layout.files_list_fragment) {
 
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: FileAdapter
-
-    companion object {
-        fun newInstance() = FilesListFragment()
-    }
-
-    private lateinit var viewModel: FilesListViewModel
+    private val viewModel by viewModels<FilesListViewModel>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -37,8 +32,7 @@ class FilesListFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(FilesListViewModel::class.java)
-        viewModel.setFileListArray()
+        viewModel.initFileListArray()
         initRecyclerView()
     }
 
@@ -63,5 +57,9 @@ class FilesListFragment : Fragment() {
             R.id.menu_save -> viewModel.saveFileListData()
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    companion object {
+        fun newInstance() = FilesListFragment()
     }
 }
