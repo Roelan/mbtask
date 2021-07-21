@@ -13,10 +13,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.filechecker.R
 import com.example.filechecker.adapter.FileAdapter
 import com.example.filechecker.ui.fileinfo.FileInfoFragment
+import kotlinx.android.synthetic.main.files_list_fragment.*
 
 class FilesListFragment : Fragment(R.layout.files_list_fragment) {
 
-    private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: FileAdapter
     private val viewModel by viewModels<FilesListViewModel>()
 
@@ -26,7 +26,6 @@ class FilesListFragment : Fragment(R.layout.files_list_fragment) {
     ): View {
         val v = inflater.inflate(R.layout.files_list_fragment, container, false)
         setHasOptionsMenu(true)
-        recyclerView = v.findViewById(R.id.recyclerView)
         return v
     }
 

@@ -6,6 +6,7 @@ import com.example.filechecker.App
 import com.example.filechecker.data.FileData
 import com.example.filechecker.provider.FileDataProvider
 import com.example.filechecker.provider.SaveFilesData
+import javax.inject.Inject
 
 class FilesListViewModel : ViewModel() {
 
@@ -13,11 +14,11 @@ class FilesListViewModel : ViewModel() {
     private val fileDataProvider = FileDataProvider()
 
     init {
-        App().getComponent().inject(this)
+       // App().getComponent().inject(this)
     }
 
     fun initFileListArray() {
-       // filesListData = fileDataProvider.getFileDataList()
+        filesListData = fileDataProvider.getFileDataList()
     }
 
     fun getFileListArray(): ArrayList<FileData> {

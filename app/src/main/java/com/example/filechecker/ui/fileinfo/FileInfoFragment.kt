@@ -9,15 +9,9 @@ import android.widget.TextView
 import androidx.fragment.app.DialogFragment
 import com.example.filechecker.R
 import com.example.filechecker.data.FileData
+import kotlinx.android.synthetic.main.file_info_fragment.*
 
 class FileInfoFragment : DialogFragment() {
-
-    private lateinit var tvFileName : TextView
-    private lateinit var tvFileSize : TextView
-    private lateinit var tvFilePath : TextView
-    private lateinit var tvFileLastModifiedDate : TextView
-    private lateinit var tvCloseBtn : TextView
-    private lateinit var ivImage : ImageView
 
     companion object {
         fun getNewInstance(fileData: FileData) : FileInfoFragment {
@@ -37,20 +31,11 @@ class FileInfoFragment : DialogFragment() {
         val v: View = inflater.inflate(R.layout.file_info_fragment, container, false)
         val myFileData : FileData = arguments?.getParcelable("fileData")!!
 
-        tvFileName = v.findViewById(R.id.file_name_text)
-        tvFileSize = v.findViewById(R.id.file_size_text)
-        tvFileLastModifiedDate = v.findViewById(R.id.file_last_modified_text)
-        tvFilePath = v.findViewById(R.id.file_path_text)
-        tvCloseBtn = v.findViewById(R.id.close_button)
-        ivImage = v.findViewById(R.id.data_image)
-
-        tvFileName.text = myFileData.fileName
-        tvFileSize.text = myFileData.fileSize
-        tvFilePath.text = myFileData.filePath
-        tvFileLastModifiedDate.text = myFileData.lastModified
-
-        tvCloseBtn.setOnClickListener { dismiss() }
-
+        fileNameText.text = myFileData.fileName
+        fileSizeText.text = myFileData.fileSize
+        filePathText.text = myFileData.filePath
+        fileLastModifiedText.text = myFileData.lastModified
+        closeButton.setOnClickListener { dismiss() }
         return v
     }
 
