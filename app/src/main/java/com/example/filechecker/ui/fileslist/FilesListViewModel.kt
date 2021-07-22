@@ -6,20 +6,22 @@ import androidx.lifecycle.ViewModel
 import com.example.filechecker.data.FileData
 import com.example.filechecker.provider.FileDataProvider
 import com.example.filechecker.provider.SaveFilesData
+import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.launch
 
 class FilesListViewModel : ViewModel() {
 
     private var _filesListData = MutableLiveData<List<FileData>>()
-    private var filesListData: List<FileData> = ArrayList()
     private val fileDataProvider = FileDataProvider()
 
     init {
         // App().getComponent().inject(this)
     }
 
-    suspend fun initFileListArray() {
-        filesListData = fileDataProvider.getDataList()
-        _filesListData.postValue(fileDataProvider.getDataList())
+    suspend fun initFileListArray() = coroutineScope {
+        launch {
+            _filesListData.postValue(fileDataProvider.getDataList())
+        }
     }
 
     fun getFileListArray(): MutableLiveData<List<FileData>> {
@@ -42,8 +44,10 @@ class FilesListViewModel : ViewModel() {
         return _filesListData
     }
 
-    fun saveFileListData() {
-        val saveFilesData = SaveFilesData()
-        saveFilesData.save(filesListData)
+    suspend fun saveFileListData(filesListArray: List<FileData>)= coroutineScope {
+        launch {
+            val saveFilesData = SaveFilesData()
+            saveFilesData.save(filesListArray)
+        }
     }
 }

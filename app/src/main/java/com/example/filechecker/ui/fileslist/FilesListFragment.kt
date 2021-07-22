@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -13,6 +14,7 @@ import com.example.filechecker.R
 import com.example.filechecker.adapter.FileAdapter
 import com.example.filechecker.ui.fileinfo.FileInfoFragment
 import kotlinx.android.synthetic.main.files_list_fragment.*
+import kotlinx.android.synthetic.main.files_list_fragment.view.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.launch
@@ -28,13 +30,18 @@ class FilesListFragment : Fragment(R.layout.files_list_fragment) {
         savedInstanceState: Bundle?
     ): View {
         val v = inflater.inflate(R.layout.files_list_fragment, container, false)
-        setHasOptionsMenu(true)
+        v.fab.setOnClickListener {
+            CoroutineScope(IO).launch {
+                viewModel.initFileListArray()
+                viewModel.getFileListArray().observe(viewLifecycleOwner, { fileList -> adapter.setUpFileList(fileList) })
+            }
+        }
         return v
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-
+        setHasOptionsMenu(true)
         CoroutineScope(IO).launch {
             viewModel.initFileListArray()
         }
@@ -59,7 +66,14 @@ class FilesListFragment : Fragment(R.layout.files_list_fragment) {
             R.id.menu_filter_name -> viewModel.getSortedListByName().observe(viewLifecycleOwner, { fileList -> adapter.setUpFileList(fileList)})
             R.id.menu_filter_size -> viewModel.getSortedListBySize().observe(viewLifecycleOwner, { fileList -> adapter.setUpFileList(fileList)})
             R.id.menu_filter_modify -> viewModel.getSortedListByDate().observe(viewLifecycleOwner, { fileList -> adapter.setUpFileList(fileList)})
-            R.id.menu_save -> viewModel.saveFileListData()
+            R.id.menu_save -> {
+                viewModel.getFileListArray().observe(viewLifecycleOwner, { fileList ->
+                    CoroutineScope(IO).launch {
+                        viewModel.saveFileListData(fileList)
+                    }
+                })
+                Toast.makeText(context, "File saved!", Toast.LENGTH_LONG).show()
+            }
         }
         return super.onOptionsItemSelected(item)
     }
