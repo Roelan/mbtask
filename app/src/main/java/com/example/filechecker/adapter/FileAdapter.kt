@@ -12,11 +12,27 @@ import com.example.filechecker.data.FileData
 class FileAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private var filesList: ArrayList<FileData> = ArrayList()
+    private var sourceList: ArrayList<FileData> = ArrayList()
     var onItemClick: ((FileData) -> Unit)? = null
 
     fun setUpFileList(filesList: List<FileData>) {
-        this.filesList.clear()
-        this.filesList.addAll(filesList)
+        this.sourceList.clear()
+        this.sourceList.addAll(filesList)
+        filter(query = "")
+    }
+
+    fun filter(query: String) {
+        filesList.clear()
+        sourceList.forEach {
+            if (it.fileName.contains(query, ignoreCase = true)) {
+                filesList.add(it)
+            } else {
+                it.filePath?.let { city ->
+                    if (city.contains(query, ignoreCase = true))
+                        filesList.add(it)
+                }
+            }
+        }
         notifyDataSetChanged()
     }
 

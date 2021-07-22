@@ -1,6 +1,8 @@
 package com.example.filechecker.ui.fileslist
 
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.MenuItem
@@ -25,12 +27,15 @@ class FilesListFragment : Fragment(R.layout.files_list_fragment) {
     private lateinit var adapter: FileAdapter
     private val viewModel by viewModels<FilesListViewModel>()
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        val v = inflater.inflate(R.layout.files_list_fragment, container, false)
-        v.fab.setOnClickListener {
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        setHasOptionsMenu(true)
+
+        CoroutineScope(IO).launch {
+            viewModel.initFileListArray()
+        }
+
+        fab.setOnClickListener {
             CoroutineScope(IO).launch {
                 viewModel.initFileListArray()
             }
@@ -38,15 +43,22 @@ class FilesListFragment : Fragment(R.layout.files_list_fragment) {
                 adapter.setUpFileList(fileList)
             })
         }
-        return v
-    }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        setHasOptionsMenu(true)
-        CoroutineScope(IO).launch {
-            viewModel.initFileListArray()
-        }
+        txtDataSearch.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable?) {
+
+            }
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+
+            }
+
+            override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
+                adapter.filter(s.toString())
+            }
+
+        })
+
         initRecyclerView()
     }
 

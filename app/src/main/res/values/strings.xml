@@ -6,4 +6,5 @@
     <string name="save">Save</string>
     <string name="filter_by_modify">Filter by last modify date</string>
     <string name="filter_by_size">Filter by size</string>
+    <string name="friends_search_hint">Enter your query here</string>
 </resources>
