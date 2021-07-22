@@ -7,10 +7,13 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.fragment.app.DialogFragment
+import androidx.fragment.app.Fragment
 import com.example.filechecker.R
 import com.example.filechecker.data.FileData
+import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.file_info_fragment.*
 import kotlinx.android.synthetic.main.file_info_fragment.view.*
+import java.io.File
 
 class FileInfoFragment : DialogFragment() {
 
@@ -36,6 +39,13 @@ class FileInfoFragment : DialogFragment() {
         v.fileSizeText.text = myFileData.fileSize
         v.filePathText.text = myFileData.filePath
         v.fileLastModifiedText.text = myFileData.lastModified
+
+        Picasso.get()
+            .load(File(myFileData.filePath))
+            .resize(500, 500)
+            .centerCrop()
+            .into(v.dataImage)
+
         v. closeButton.setOnClickListener { dismiss() }
         return v
     }

@@ -33,8 +33,10 @@ class FilesListFragment : Fragment(R.layout.files_list_fragment) {
         v.fab.setOnClickListener {
             CoroutineScope(IO).launch {
                 viewModel.initFileListArray()
-                viewModel.getFileListArray().observe(viewLifecycleOwner, { fileList -> adapter.setUpFileList(fileList) })
             }
+            viewModel.getFileListArray().observe(viewLifecycleOwner, { fileList ->
+                adapter.setUpFileList(fileList)
+            })
         }
         return v
     }

@@ -3,6 +3,8 @@ package com.example.filechecker.provider
 import android.util.Log
 import com.example.filechecker.data.FileData
 import java.io.File
+import java.text.DecimalFormat
+import java.util.*
 import kotlin.collections.ArrayList
 
 class FileDataProvider {
@@ -14,7 +16,7 @@ class FileDataProvider {
         // dummy data for test
         filesList.add(
             FileData(
-                "MyData",
+                "MyData.exe",
                 "/0/narnia",
                 "200tb",
                 "never",
@@ -22,14 +24,15 @@ class FileDataProvider {
             )
         )
 
+        val df = DecimalFormat("#.##")
         File("/storage/emulated/0").walkBottomUp().forEach {
             if (it.isFile) {
                 filesList.add(
                     FileData(
                         fileName = it.name,
                         filePath = it.path,
-                        fileSize = "${it.length() / (1024.0 * 1024)}Mb",
-                        lastModified = "${it.lastModified()}",
+                        fileSize = "${df.format(it.length() / (1024.0 * 1024))}Mb",
+                        lastModified = "${Date(it.lastModified())}",
                         fileExtension = it.extension
                     )
                 )

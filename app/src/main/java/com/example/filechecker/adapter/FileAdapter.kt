@@ -11,11 +11,12 @@ import com.example.filechecker.data.FileData
 
 class FileAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    private var filesList: List<FileData> = ArrayList()
+    private var filesList: ArrayList<FileData> = ArrayList()
     var onItemClick: ((FileData) -> Unit)? = null
 
     fun setUpFileList(filesList: List<FileData>) {
-        this.filesList = filesList
+        this.filesList.clear()
+        this.filesList.addAll(filesList)
         notifyDataSetChanged()
     }
 
