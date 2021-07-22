@@ -9,11 +9,11 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.example.filechecker.R
 import com.example.filechecker.adapter.FileAdapter
 import com.example.filechecker.ui.fileinfo.FileInfoFragment
 import kotlinx.android.synthetic.main.files_list_fragment.*
+
 
 class FilesListFragment : Fragment(R.layout.files_list_fragment) {
 
@@ -40,7 +40,7 @@ class FilesListFragment : Fragment(R.layout.files_list_fragment) {
         recyclerView.layoutManager = LinearLayoutManager(context)
         recyclerView.setHasFixedSize(true)
         recyclerView.adapter = adapter
-        adapter.setUpFileList(viewModel.getFileListArray())
+        viewModel.getFileListArray().observe(viewLifecycleOwner, { fileList -> adapter.setUpFileList(fileList) })
         adapter.onItemClick = { fileData ->
             Log.d("TAG", "${fileData.fileName} - was clicked.")
             val fragment = FileInfoFragment.getNewInstance(fileData)
@@ -50,9 +50,9 @@ class FilesListFragment : Fragment(R.layout.files_list_fragment) {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.menu_filter_name -> adapter.setUpFileList(viewModel.getSortedListByName())
-            R.id.menu_filter_size -> adapter.setUpFileList(viewModel.getSortedListBySize())
-            R.id.menu_filter_modify -> adapter.setUpFileList(viewModel.getSortedListByDate())
+            R.id.menu_filter_name -> viewModel.getSortedListByName().observe(viewLifecycleOwner, { fileList -> adapter.setUpFileList(fileList)})
+            R.id.menu_filter_size -> viewModel.getSortedListBySize().observe(viewLifecycleOwner, { fileList -> adapter.setUpFileList(fileList)})
+            R.id.menu_filter_modify -> viewModel.getSortedListByDate().observe(viewLifecycleOwner, { fileList -> adapter.setUpFileList(fileList)})
             R.id.menu_save -> viewModel.saveFileListData()
         }
         return super.onOptionsItemSelected(item)

@@ -1,44 +1,45 @@
 package com.example.filechecker.ui.fileslist
 
 import android.util.Log
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.filechecker.App
 import com.example.filechecker.data.FileData
 import com.example.filechecker.provider.FileDataProvider
 import com.example.filechecker.provider.SaveFilesData
-import javax.inject.Inject
 
 class FilesListViewModel : ViewModel() {
 
-    private var filesListData: ArrayList<FileData> = ArrayList()
+    private var _filesListData = MutableLiveData<List<FileData>>()
+    private var filesListData: List<FileData> = ArrayList()
     private val fileDataProvider = FileDataProvider()
 
     init {
-       // App().getComponent().inject(this)
+        // App().getComponent().inject(this)
     }
 
     fun initFileListArray() {
-        filesListData = fileDataProvider.getFileDataList()
+        filesListData = fileDataProvider.getDummyDataList()
+        _filesListData.postValue(filesListData)
     }
 
-    fun getFileListArray(): ArrayList<FileData> {
+    fun getFileListArray(): MutableLiveData<List<FileData>> {
         Log.i("TAG", "Get File List Array")
-        return filesListData
+        return _filesListData
     }
 
-    fun getSortedListByName(): ArrayList<FileData> {
-        filesListData = fileDataProvider.getSortedListByName()
-        return filesListData
+    fun getSortedListByName(): MutableLiveData<List<FileData>> {
+        _filesListData.postValue(fileDataProvider.getSortedListByName())
+        return _filesListData
     }
 
-    fun getSortedListBySize(): ArrayList<FileData> {
-        filesListData = fileDataProvider.getSortedListBySize()
-        return filesListData
+    fun getSortedListBySize(): MutableLiveData<List<FileData>> {
+        _filesListData.postValue(fileDataProvider.getSortedListBySize())
+        return _filesListData
     }
 
-    fun getSortedListByDate(): ArrayList<FileData> {
-        filesListData = fileDataProvider.getSortedListByDate()
-        return filesListData
+    fun getSortedListByDate(): MutableLiveData<List<FileData>> {
+        _filesListData.postValue(fileDataProvider.getSortedListByDate())
+        return _filesListData
     }
 
     fun saveFileListData() {

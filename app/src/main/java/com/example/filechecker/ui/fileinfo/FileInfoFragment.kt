@@ -10,6 +10,7 @@ import androidx.fragment.app.DialogFragment
 import com.example.filechecker.R
 import com.example.filechecker.data.FileData
 import kotlinx.android.synthetic.main.file_info_fragment.*
+import kotlinx.android.synthetic.main.file_info_fragment.view.*
 
 class FileInfoFragment : DialogFragment() {
 
@@ -31,11 +32,11 @@ class FileInfoFragment : DialogFragment() {
         val v: View = inflater.inflate(R.layout.file_info_fragment, container, false)
         val myFileData : FileData = arguments?.getParcelable("fileData")!!
 
-        fileNameText.text = myFileData.fileName
-        fileSizeText.text = myFileData.fileSize
-        filePathText.text = myFileData.filePath
-        fileLastModifiedText.text = myFileData.lastModified
-        closeButton.setOnClickListener { dismiss() }
+        v.fileNameText.text = myFileData.fileName
+        v.fileSizeText.text = myFileData.fileSize
+        v.filePathText.text = myFileData.filePath
+        v.fileLastModifiedText.text = myFileData.lastModified
+        v. closeButton.setOnClickListener { dismiss() }
         return v
     }
 

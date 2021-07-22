@@ -7,7 +7,7 @@ import java.io.*
 
 class SaveFilesData {
 
-    fun save(filesData: ArrayList<FileData>) {
+    fun save(filesData: List<FileData>) {
 
         val extDir = Environment.getExternalStorageDirectory()
         try {
