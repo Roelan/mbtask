@@ -13,6 +13,9 @@ import com.example.filechecker.R
 import com.example.filechecker.adapter.FileAdapter
 import com.example.filechecker.ui.fileinfo.FileInfoFragment
 import kotlinx.android.synthetic.main.files_list_fragment.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers.IO
+import kotlinx.coroutines.launch
 
 
 class FilesListFragment : Fragment(R.layout.files_list_fragment) {
@@ -31,7 +34,10 @@ class FilesListFragment : Fragment(R.layout.files_list_fragment) {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel.initFileListArray()
+
+        CoroutineScope(IO).launch {
+            viewModel.initFileListArray()
+        }
         initRecyclerView()
     }
 

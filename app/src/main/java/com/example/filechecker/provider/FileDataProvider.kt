@@ -9,7 +9,9 @@ class FileDataProvider {
 
     private var filesList: ArrayList<FileData> = ArrayList()
 
-    fun getDummyDataList(): ArrayList<FileData> {
+    fun getDataList(): ArrayList<FileData> {
+
+        // dummy data for test
         filesList.add(
             FileData(
                 "MyData",
@@ -19,10 +21,9 @@ class FileDataProvider {
                 "exe"
             )
         )
-        val results: ArrayList<String> = ArrayList()
+
         File("/storage/emulated/0").walkBottomUp().forEach {
             if (it.isFile) {
-                results.add(it.name)
                 filesList.add(
                     FileData(
                         fileName = it.name,

@@ -17,9 +17,9 @@ class FilesListViewModel : ViewModel() {
         // App().getComponent().inject(this)
     }
 
-    fun initFileListArray() {
-        filesListData = fileDataProvider.getDummyDataList()
-        _filesListData.postValue(filesListData)
+    suspend fun initFileListArray() {
+        filesListData = fileDataProvider.getDataList()
+        _filesListData.postValue(fileDataProvider.getDataList())
     }
 
     fun getFileListArray(): MutableLiveData<List<FileData>> {

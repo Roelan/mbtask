@@ -7,14 +7,11 @@ import com.example.filechecker.di.DaggerAppComponent
 
 class App : Application() {
 
-    private lateinit var appComponent: AppComponent
-
-    override fun onCreate() {
-        super.onCreate()
-        appComponent = DaggerAppComponent.builder()
+    private val appComponent: AppComponent by lazy {
+        DaggerAppComponent.builder()
             .appModule(AppModule())
             .build()
     }
 
-    fun getComponent()  = appComponent
+    fun getComponent() = appComponent
 }
