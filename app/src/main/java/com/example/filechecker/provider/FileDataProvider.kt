@@ -13,17 +13,6 @@ class FileDataProvider {
 
     fun getDataList(): ArrayList<FileData> {
         filesList.clear()
-        // dummy data for test
-        filesList.add(
-            FileData(
-                "MyData.exe",
-                "/0/narnia",
-                "200tb",
-                "never",
-                "exe"
-            )
-        )
-
         val df = DecimalFormat("#.##")
         File("/storage/emulated/0").walkBottomUp().forEach {
             if (it.isFile) {

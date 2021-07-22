@@ -44,7 +44,7 @@ class FilesListViewModel : ViewModel() {
         return _filesListData
     }
 
-    suspend fun saveFileListData(filesListArray: List<FileData>)= coroutineScope {
+    suspend fun saveFileListData(filesListArray: List<FileData>) = coroutineScope {
         launch {
             val saveFilesData = SaveFilesData()
             saveFilesData.save(filesListArray)

@@ -4,14 +4,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
 import androidx.fragment.app.DialogFragment
-import androidx.fragment.app.Fragment
 import com.example.filechecker.R
 import com.example.filechecker.data.FileData
 import com.squareup.picasso.Picasso
-import kotlinx.android.synthetic.main.file_info_fragment.*
 import kotlinx.android.synthetic.main.file_info_fragment.view.*
 import java.io.File
 
