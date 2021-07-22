@@ -12,7 +12,7 @@ class FileDataProvider {
     private var filesList: ArrayList<FileData> = ArrayList()
 
     fun getDataList(): ArrayList<FileData> {
-
+        filesList.clear()
         // dummy data for test
         filesList.add(
             FileData(
