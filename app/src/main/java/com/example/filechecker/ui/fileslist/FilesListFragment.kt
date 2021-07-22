@@ -1,5 +1,6 @@
 package com.example.filechecker.ui.fileslist
 
+import android.app.NotificationManager
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -9,9 +10,12 @@ import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.app.NotificationCompat
+import androidx.core.app.NotificationManagerCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.filechecker.App.Companion.CHANNEl_1_ID
 import com.example.filechecker.R
 import com.example.filechecker.adapter.FileAdapter
 import com.example.filechecker.ui.fileinfo.FileInfoFragment
@@ -26,10 +30,12 @@ class FilesListFragment : Fragment(R.layout.files_list_fragment) {
 
     private lateinit var adapter: FileAdapter
     private val viewModel by viewModels<FilesListViewModel>()
+    private lateinit var notificationManager: NotificationManagerCompat
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         setHasOptionsMenu(true)
+        notificationManager = NotificationManagerCompat.from(requireContext())
 
         CoroutineScope(IO).launch {
             viewModel.initFileListArray()
@@ -41,7 +47,9 @@ class FilesListFragment : Fragment(R.layout.files_list_fragment) {
             }
             viewModel.getFileListArray().observe(viewLifecycleOwner, { fileList ->
                 adapter.setUpFileList(fileList)
+                iniNotification(fileList.size.toString())
             })
+
         }
 
         txtDataSearch.addTextChangedListener(object : TextWatcher {
@@ -58,7 +66,6 @@ class FilesListFragment : Fragment(R.layout.files_list_fragment) {
             }
 
         })
-
         initRecyclerView()
     }
 
@@ -67,12 +74,25 @@ class FilesListFragment : Fragment(R.layout.files_list_fragment) {
         recyclerView.layoutManager = LinearLayoutManager(context)
         recyclerView.setHasFixedSize(true)
         recyclerView.adapter = adapter
-        viewModel.getFileListArray().observe(viewLifecycleOwner, { fileList -> adapter.setUpFileList(fileList) })
+        viewModel.getFileListArray().observe(viewLifecycleOwner, {
+                fileList -> adapter.setUpFileList(fileList)
+        })
         adapter.onItemClick = { fileData ->
             Log.d("TAG", "${fileData.fileName} - was clicked.")
             val fragment = FileInfoFragment.getNewInstance(fileData)
             activity?.let { fragment.show(it.supportFragmentManager, fragment.tag) }
         }
+    }
+
+    private fun iniNotification(message :String){
+        val notification = NotificationCompat.Builder(requireContext(), CHANNEl_1_ID)
+            .setSmallIcon(R.drawable.ic_baseline_emoji_people_24)
+            .setContentTitle("Search finished!")
+            .setContentText("App found $message files!")
+            .setPriority(NotificationCompat.PRIORITY_HIGH)
+            .setCategory(NotificationCompat.CATEGORY_MESSAGE)
+            .build()
+        notificationManager.notify(1,notification)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
