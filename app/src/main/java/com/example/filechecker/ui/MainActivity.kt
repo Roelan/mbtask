@@ -2,10 +2,10 @@ package com.example.filechecker.ui
 
 import android.Manifest
 import android.content.pm.PackageManager
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import com.example.filechecker.R
 import com.example.filechecker.ui.fileslist.FilesListFragment
