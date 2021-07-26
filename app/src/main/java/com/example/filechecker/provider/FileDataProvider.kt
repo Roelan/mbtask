@@ -11,7 +11,7 @@ class FileDataProvider {
 
     private var filesList: ArrayList<FileData> = ArrayList()
 
-    fun getDataList(): ArrayList<FileData> {
+    suspend fun getDataList(): ArrayList<FileData> {
         filesList.clear()
         val df = DecimalFormat("#.##")
         File("/storage/emulated/0").walkBottomUp().forEach {

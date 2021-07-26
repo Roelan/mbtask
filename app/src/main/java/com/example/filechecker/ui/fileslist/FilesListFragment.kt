@@ -11,14 +11,11 @@ import androidx.core.app.NotificationManagerCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.filechecker.App.Companion.CHANNEl_1_ID
+import com.example.filechecker.App.Companion.CHANNEL_1_ID
 import com.example.filechecker.R
 import com.example.filechecker.adapter.FileAdapter
 import com.example.filechecker.ui.fileinfo.FileInfoFragment
 import kotlinx.android.synthetic.main.files_list_fragment.*
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers.IO
-import kotlinx.coroutines.launch
 
 class FilesListFragment : Fragment(R.layout.files_list_fragment) {
 
@@ -30,10 +27,10 @@ class FilesListFragment : Fragment(R.layout.files_list_fragment) {
         super.onActivityCreated(savedInstanceState)
         setHasOptionsMenu(true)
         notificationManager = NotificationManagerCompat.from(requireContext())
-        CoroutineScope(IO).launch { viewModel.initFileListArray() }
+        viewModel.initFileListArray()
 
         fab.setOnClickListener {
-            CoroutineScope(IO).launch { viewModel.initFileListArray() }
+         viewModel.initFileListArray()
 
             viewModel.getFileListArray().observe(viewLifecycleOwner, { fileList ->
                 adapter.setUpFileList(fileList)
@@ -63,7 +60,7 @@ class FilesListFragment : Fragment(R.layout.files_list_fragment) {
     }
 
     private fun iniNotification(message :String) {
-        val notification = NotificationCompat.Builder(requireContext(), CHANNEl_1_ID)
+        val notification = NotificationCompat.Builder(requireContext(), CHANNEL_1_ID)
             .setSmallIcon(R.drawable.ic_baseline_emoji_people_24)
             .setContentTitle("Search finished!")
             .setContentText("App found $message files!")
@@ -79,9 +76,7 @@ class FilesListFragment : Fragment(R.layout.files_list_fragment) {
             R.id.menu_filter_size -> viewModel.getSortedListBySize().observe(viewLifecycleOwner, { fileList -> adapter.setUpFileList(fileList)})
             R.id.menu_filter_modify -> viewModel.getSortedListByDate().observe(viewLifecycleOwner, { fileList -> adapter.setUpFileList(fileList)})
             R.id.menu_save -> {
-                viewModel.getFileListArray().observe(viewLifecycleOwner, { fileList ->
-                    CoroutineScope(IO).launch { viewModel.saveFileListData(fileList) }
-                })
+                viewModel.getFileListArray().observe(viewLifecycleOwner, { fileList -> viewModel.saveFileListData(fileList) })
                 Toast.makeText(context, "File saved!", Toast.LENGTH_LONG).show()
             }
         }

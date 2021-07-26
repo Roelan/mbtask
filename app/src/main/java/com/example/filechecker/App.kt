@@ -11,12 +11,12 @@ import com.example.filechecker.di.DaggerAppComponent
 class App : Application() {
 
     companion object {
-        const val CHANNEl_1_ID = "channel1"
+        const val CHANNEL_1_ID = "channel1"
     }
 
     private val appComponent: AppComponent by lazy {
         DaggerAppComponent.builder()
-            .appModule(AppModule())
+            .appModule(AppModule(this))
             .build()
     }
 
@@ -28,7 +28,7 @@ class App : Application() {
     private fun createNotificationChannel() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             val channel = NotificationChannel(
-                CHANNEl_1_ID,
+                CHANNEL_1_ID,
                 "Channel1",
                 NotificationManager.IMPORTANCE_HIGH
             )
