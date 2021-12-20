@@ -4,7 +4,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.RecyclerView
 import com.example.filechecker.R
 import com.example.filechecker.data.FileData
@@ -54,8 +53,8 @@ class FileAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     inner class FileViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-        private var tvFileName = itemView.findViewById<TextView>(R.id.file_name)
-        private var tvFilePath = itemView.findViewById<TextView>(R.id.file_path)
+        private var tvFileName = itemView.findViewById<TextView>(R.id.fileNameTextView)
+        private var tvFilePath = itemView.findViewById<TextView>(R.id.filePathTextView)
 
         init {
             itemView.setOnClickListener {

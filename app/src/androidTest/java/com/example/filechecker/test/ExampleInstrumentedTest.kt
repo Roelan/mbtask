@@ -1,4 +1,4 @@
-package com.example.filechecker
+package com.example.filechecker.test
 
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4

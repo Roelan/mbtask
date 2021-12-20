@@ -29,7 +29,7 @@ class FilesListFragment : Fragment(R.layout.files_list_fragment) {
         notificationManager = NotificationManagerCompat.from(requireContext())
         viewModel.initFileListArray()
 
-        fab.setOnClickListener {
+        refreshButton.setOnClickListener {
          viewModel.initFileListArray()
 
             viewModel.getFileListArray().observe(viewLifecycleOwner, { fileList ->
@@ -38,7 +38,7 @@ class FilesListFragment : Fragment(R.layout.files_list_fragment) {
             })
         }
 
-        txtDataSearch.addTextChangedListener(object : TextWatcher {
+        dataSearchEditText.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {}
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
             override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int)  = adapter.filter(s.toString())

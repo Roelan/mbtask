@@ -6,12 +6,12 @@
     android:orientation="vertical">
 
     <TextView
-        android:id="@+id/file_name"
+        android:id="@+id/fileNameTextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textSize="16dp"/>
     <TextView
-        android:id="@+id/file_path"
+        android:id="@+id/filePathTextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textSize="12dp"/>

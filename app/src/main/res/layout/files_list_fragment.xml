@@ -8,7 +8,7 @@
     tools:context=".ui.fileslist.FilesListFragment">
 
     <EditText
-        android:id="@+id/txtDataSearch"
+        android:id="@+id/dataSearchEditText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/friends_search_hint"
@@ -23,11 +23,11 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtDataSearch"
+        app:layout_constraintTop_toBottomOf="@+id/dataSearchEditText"
         tools:listitem="@layout/cell_file_atributs_item" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fab"
+        android:id="@+id/refreshButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"

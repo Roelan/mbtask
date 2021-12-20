@@ -8,7 +8,7 @@ import com.example.filechecker.di.AppComponent
 import com.example.filechecker.di.AppModule
 import com.example.filechecker.di.DaggerAppComponent
 
-class App : Application() {
+open class App : Application() {
 
     companion object {
         const val CHANNEL_1_ID = "channel1"
