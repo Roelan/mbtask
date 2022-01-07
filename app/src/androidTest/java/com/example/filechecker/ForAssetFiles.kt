@@ -1,6 +1,7 @@
 package com.example.filechecker
 
 import android.os.Environment
+import androidx.test.platform.app.InstrumentationRegistry
 import com.google.firebase.crashlytics.buildtools.reloc.org.apache.commons.io.IOUtils
 import java.io.File
 import java.io.FileOutputStream
@@ -45,5 +46,23 @@ class ForAssetFiles {
             }
         }
         return fileToScan
+    }
+
+    /**
+     * Get string value from json file.
+     */
+    fun getJson(jsonName: String): String {
+        // Load the JSON response
+        return try {
+            if ("".equals(jsonName)) {
+                return "" // If jsonName empty, set empty body to the request or response
+            } else {
+                val inputStream = InstrumentationRegistry.getInstrumentation().context.assets.open("mocks/$jsonName")
+                inputStream.bufferedReader().use { it.readText() }
+            }
+        } catch (ex: Exception) {
+            ex.printStackTrace()
+            return "ERROR: no JSON file."
+        }
     }
 }

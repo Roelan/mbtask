@@ -1,4 +1,4 @@
-package com.example.filechecker
+package com.example.filechecker.mock
 
 import com.example.filechecker.logger.L
 import com.google.gson.JsonObject

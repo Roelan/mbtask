@@ -1,4 +1,4 @@
-package com.example.filechecker
+package com.example.filechecker.mock
 
 data class EventData(
     var dataName: String,
