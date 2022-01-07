@@ -1,4 +1,4 @@
-package com.example.filechecker.test
+package com.example.filechecker.page
 
 import com.example.filechecker.mock.EventData
 import com.example.filechecker.logger.L
@@ -58,7 +58,7 @@ class TestMockServer {
      * Shutdown mock web server
      */
     fun shutDownMockServer() {
-        mockWebServer.shutdown()
         L.i("MockTest", "========== Mock Server: SHUTDOWN =========================")
+        mockWebServer.shutdown()
     }
 }
