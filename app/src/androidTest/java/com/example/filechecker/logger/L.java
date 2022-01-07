@@ -52,7 +52,7 @@ public class L {
             isInTestTemp = true;
         } catch (ClassNotFoundException ignored1) {
             try {
-                Class.forName("org.malwarebytes.antimalware.common.TestRunner", true, L.class.getClassLoader());
+                Class.forName("com.example.filechecker.qa.CustomTestRunner", true, L.class.getClassLoader());
                 isInTestTemp = true;
             } catch (ClassNotFoundException ignored2) {
                 //do nothing
