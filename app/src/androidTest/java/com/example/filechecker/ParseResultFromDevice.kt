@@ -54,7 +54,7 @@ class ParseResultFromDevice(
 
                 Assert.assertEquals(rtpData?.dataName, name)
                 Assert.assertEquals(rtpData?.dataStatus, status)
-                Assert.assertEquals(rtpData?.threatType, type)
+                Assert.assertEquals(rtpData?.dataType, type)
             }
             BOOMERANG_EVENT_TYPE -> {
                 val errorCode = parsedJson.get("error_code").asString
