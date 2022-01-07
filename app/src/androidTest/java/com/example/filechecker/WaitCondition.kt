@@ -1,9 +1,12 @@
 package com.example.filechecker
 
 import androidx.test.espresso.NoMatchingViewException
+import com.agoda.kakao.common.assertions.BaseAssertions
 import com.agoda.kakao.recycler.KRecyclerView
 import com.agoda.kakao.screen.Screen.Companion.idle
 import com.agoda.kakao.text.KTextView
+import com.example.filechecker.logger.L
+import com.example.filechecker.qa.TestApp.TAG
 import junit.framework.AssertionFailedError
 
 const val DEFAULT_TIMEOUT = 10000
@@ -25,33 +28,16 @@ private fun waitCondition(
 }
 
 /**
- * Wait until text View isVisible
+ * Wait until Image View isVisible
  */
-fun waitUntilVisible(textView: KTextView) {
-    waitCondition(timeout = 120) { isMyLabelIsVisible(textView) }
+fun waitUntilVisible(view: BaseAssertions) {
+    L.i(TAG, "WaitCondition - Wait 120s until view is Visible")
+    waitCondition(timeout = 120) { isMyLabelIsVisible(view) }
 }
 
-private fun isMyLabelIsVisible(textView: KTextView): Boolean {
+private fun isMyLabelIsVisible(view: BaseAssertions): Boolean {
     return try {
-        textView.isVisible()
-        true
-    } catch (e: AssertionFailedError) {
-        false
-    } catch (e: NoMatchingViewException) {
-        false
-    }
-}
-
-/**
- * Wait until recycler View isVisible
- */
-fun waitUntilVisible(recyclerView: KRecyclerView) {
-    waitCondition(timeout = 120) { isMyLabelIsVisible(recyclerView) }
-}
-
-private fun isMyLabelIsVisible(recyclerView: KRecyclerView): Boolean {
-    return try {
-        recyclerView.isVisible()
+        view.isVisible()
         true
     } catch (e: AssertionFailedError) {
         false
