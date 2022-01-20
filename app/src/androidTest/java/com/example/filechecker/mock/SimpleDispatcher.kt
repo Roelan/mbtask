@@ -1,6 +1,6 @@
 package com.example.filechecker.mock
 
-import com.example.filechecker.ForAssetFiles
+import com.example.filechecker.utils.ForAssetFiles
 import com.example.filechecker.logger.L
 import com.example.filechecker.qa.TestApp.TAG
 import okhttp3.mockwebserver.Dispatcher
